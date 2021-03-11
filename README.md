@@ -22,6 +22,13 @@ docker-compose up -d
 uvicorn main:app --reload
 ``` 
 
+## Execute functional tests
+
+```bash
+pytest -s
+``` 
+
+
 
 ## Access to the service info
 

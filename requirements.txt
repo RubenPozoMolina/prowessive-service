@@ -1,4 +1,7 @@
+curlify
 fastapi
+requests
 uvicorn
 sqlalchemy
 psycopg2
+pytest
