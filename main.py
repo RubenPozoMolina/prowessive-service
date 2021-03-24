@@ -53,3 +53,25 @@ def create_item_for_user(
 def read_items(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
     items = crud.get_items(db, skip=skip, limit=limit)
     return items
+
+
+@app.post("/projects/", response_model=schemas.Project)
+def create_project(project: schemas.ProjectCreate, db: Session = Depends(get_db)):
+    db_project = crud.get_project(db, project.name)
+    if db_project:
+        raise HTTPException(status_code=400, detail="Project already registered")
+    return crud.create_project(db=db, project=project)
+
+
+@app.get("/projects/", response_model=List[schemas.Project])
+def read_projects(skip: int = 0, limit: int = 100, db: Session = Depends(get_db)):
+    projects = crud.get_projects(db, skip=skip, limit=limit)
+    return projects
+
+
+@app.get("/projects/{project_name}", response_model=schemas.Project)
+def read_project(project_name: str, db: Session = Depends(get_db)):
+    db_project = crud.get_project(db, project_name)
+    if db_project is None:
+        raise HTTPException(status_code=404, detail="Project not found")
+    return db_project

@@ -34,3 +34,19 @@ def create_user_item(db: Session, item: schemas.ItemCreate, user_id: int):
     db.commit()
     db.refresh(db_item)
     return db_item
+
+
+def create_project(db: Session, project: schemas.ProjectCreate):
+    db_project = models.Project(name=project.name, data=project.data)
+    db.add(db_project)
+    db.commit()
+    db.refresh(db_project)
+    return db_project
+
+
+def get_project(db: Session, project_name: str):
+    return db.query(models.Project).filter(models.Project.name == project_name).first()
+
+
+def get_projects(db: Session, skip: int = 0, limit: int = 100):
+    return db.query(models.Project).offset(skip).limit(limit).all()

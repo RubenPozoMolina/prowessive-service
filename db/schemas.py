@@ -34,3 +34,19 @@ class User(UserBase):
 
     class Config:
         orm_mode = True
+
+
+class ProjectBase(BaseModel):
+    data: str
+
+
+class ProjectCreate(ProjectBase):
+    name: str
+
+
+class Project(ProjectBase):
+    id: int
+    is_active: bool
+
+    class Config:
+        orm_mode = True
