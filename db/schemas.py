@@ -44,7 +44,7 @@ class ProjectCreate(ProjectBase):
     name: str
 
 
-class Project(ProjectBase):
+class Project(ProjectCreate):
     id: int
     is_active: bool
 
